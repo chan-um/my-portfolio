@@ -1,6 +1,6 @@
 # Chan Um's Developer Portfolio
 
-**Check out the live site:** [portfolio.chan-um.com](https://chanum.dev)
+**Check out the live site:** [chanum.dev](https://chanum.dev)
 
 
 This repository contains the source code for my personal web portfolio. It showcases my projects, skills, and professional background in computer science, with a focus on machine learning and healthcare applications.
@@ -14,6 +14,6 @@ This repository contains the source code for my personal web portfolio. It showc
 
 ## Get in Touch
 
-* **Email:** chan.um0001@gmail.com(mailto:chan.um0001@gmail.com)
-* **LinkedIn:** linkedin.com/in/chanum(https://linkedin.com/in/chanum)
-* **GitHub:** [github.com/your-username](https://github.com/your-username)
+* **Email:** [chan.um0001@gmail.com](mailto:chan.um0001@gmail.com)
+* **LinkedIn:** [linkedin.com/in/chanum](https://linkedin.com/in/chanum)
+* **GitHub:** [github.com/chan-um](https://github.com/chan-um)
