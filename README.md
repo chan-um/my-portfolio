@@ -1,14 +1,14 @@
 # Chan Um's Developer Portfolio
 
-**Check out the live site:** [portfolio.chan-um.com](https://portfolio.chan-um.com)
+**Check out the live site:** [portfolio.chan-um.com](https://chanum.dev)
 
 
 This repository contains the source code for my personal web portfolio. It showcases my projects, skills, and professional background in computer science, with a focus on machine learning and healthcare applications.
 
 ## Technologies Used
 
-* **Frontend:** React, HTML5, CSS3
-* **Styling:** Styled-Components (or Tailwind CSS, SASS, etc.)
+* **Frontend:** HTML
+* **Styling:** CSS, particles.js
 * **Deployment:** GitHub Pages
 
 
