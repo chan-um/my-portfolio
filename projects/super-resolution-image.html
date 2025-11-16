@@ -47,19 +47,38 @@
             
             <!-- Project Image/Video -->
             <section class="project-image-section">
-                <img src="https://via.placeholder.com/1200x600.png?text=NLP+Sentiment+Analyzer+Demo" alt="NLP Sentiment Analyzer Project Image" class="project-main-image">
+                <img src="../images/dog.jpg" alt="Dog super-resolution comparison" class="project-main-image">
+                <img src="../images/tigers.jpg" alt="Tiger super-resolution comparison" class="project-main-image">
+                <p class="image-caption">From left to right: Low-resolution, L1 loss, MSE loss, and Ground truth image</p>
             </section>
 
             <!-- Results -->
             <section class="project-section">
                 <h2 class="project-section-title">Results</h2>
                 <div class="project-section-content">
+                    <img src="../images/psnr_ssim_comparison.png" alt="PSNR and SSIM comparison" class="project-main-image">
+                    <br>
                     <p>
-                        Businesses and organizations need to understand public sentiment about their products, services, or brand in real-time. With millions of social media posts, reviews, and comments generated daily, manually analyzing this data is impossible. Companies struggle to gauge customer satisfaction, track brand reputation, and respond to emerging trends quickly.
+                        In order to evaluate the models, two main metrics were used: PSNR, which measures pixel-perfect mathematical accuracy, and SSIM, which measures perceived structural similarity (how a human views)
                     </p>
                     <p>
-                        Traditional sentiment analysis tools often lack accuracy, especially with complex language, sarcasm, context-dependent meanings, and multilingual content. There was a need for a more sophisticated solution that could handle real-time data streams and provide accurate sentiment classification.
+                        The result of the model comparison shows a trade-off between the two metrics:
                     </p>
+                    <ul>
+                        <li>
+                            <strong>PSNR (Peak Signal-to-Noise Ratio):</strong> measures the mathematical calculation of pixel values. The higher PSNR means the reconstructed image is closer to the original in terms of raw pixel similarity.
+                            <br>
+                            <strong> The MSE-trained model </strong>won on PSMR, as expected. This model was more optimized to minimize the exact mathematical error that PSNR is based on.
+                        </li>
+                    </ul>
+                    <br>
+                    <ul>
+                        <li>
+                            <strong>SSIM (Structural Similarity Index):</strong> evaluates perceived visual quality by comparing textures, structure, and contrast. The better SSIM indicates the image looks more natural and true to human vision.
+                            <br>
+                            <strong> The L1-trained model </strong>won on SSIM, as expected. This model performs a better job at recreating the sharp structures, edges, and textures that a human eye perceives as a high-quality image.
+                        </li>
+                    </ul>
                 </div>
             </section>
 
@@ -87,29 +106,6 @@
             <!-- Training Process -->
             <section class="project-section">
                 <h2 class="project-section-title">Training Process</h2>
-                
-                <!-- Scoring Function Comparison Image -->
-                <div class="training-image-section">
-                    <img src="../images/training_curves_comparison.png" alt="Training Curves Comparison" class="training-comparison-image">
-                    <p class="image-caption">Comparison between L1 Loss and MSE Loss for super-resolution training</p>
-                    <img src="../images/training_curves_combined.png" alt="Training Curves Combined" class="training-comparison-image">
-                    <p class="image-caption">Combined training curves for L1 Loss and MSE Loss</p>
-                </div>
-
-                <!-- Training Reasoning Discussion -->
-                <div class="training-discussion">
-                    <h3 class="discussion-title">Choice of Loss Function</h3>
-                    <div class="discussion-content">
-                        <p>
-                            While MSE Loss is a popular choice, it heavily penalizes large errors, which often causes the model to produce safe, over-smoothed, and blurry images.
-                        </p>
-                        <p>
-                            L1 Loss is less sensitive to outliers and encourages the model to preserve sharper details and more realistic textures, which is exactly what a super-resolution is tasked. As the training graphs show, both losses are tracked by comparing their behavior.             </p>
-                        <p>
-                            Additionally, the selected scoring function demonstrates better convergence properties during training, leading to more stable gradients and faster training times. This was crucial for training the deep residual network effectively while maintaining high-quality output.
-                        </p>
-                    </div>
-                </div>
 
                 <!-- Training Details (Optional - can be removed or modified) -->
                 <div class="training-details">
@@ -134,30 +130,97 @@
                     </div>
                 </div>
             </section>
+            <div class="project-section-content">
+                <h3 class="details-title">Training Process</h3>
+            
+                <div class="training-discussion">
+                    <h4 class="discussion-title">Choosing L1 Loss</h4>
+                    <div class="discussion-content">
+                        <p>
+                            A key decision was the choice of loss function. While the common MSE (L2) Loss is easy to optimize, it heavily penalizes large errors, which forces the model to learn a safe blurry average.
+                        </p>
+                        <p>
+                            I hypothesized that <strong>L1 Loss (Mean Absolute Error)</strong> would serve a better performance. L1 is less sensitive to outliers and is known to encourage the preservation of sharp details and realistic textures, the goal of super-resolution.
+                        </p>
+                    </div>
+                </div>
+            
+                <div class="training-curves">
+                    <h4 class="discussion-title">Training</h4>
+                    <img src="../images/training_curves_comparison.png" alt="Training Curves Comparison" class="training-comparison-image">
+                    <p class="image-caption">
+                        The training and validation loss curves (for both L1 and MSE) confirm the models are healthy. The loss consistently decreases (convergence) and the small gap between the train (blue/orange) and val (green/red) lines shows that the models are <strong>not overfitting</strong>.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="project-section-content">
+                <h3 class="details-title">Proof of the Hypothesis</h3>
+                <p>
+                    The loss curves show the models learned, but they don't prove which model is better. To achieve this, I evaluated both the L1-trained model and a MSE model against the entire test set using two metrics.
+                </p>
+            
+                <div class="evaluation-metrics">
+                    <h4 class="discussion-title">PSNR vs SSIM</h4>
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th>Evaluation Metric</th>
+                                <th>L1-Optimized Model</th>
+                                <th>MSE-Optimized Model</th>
+                                <th>Winner</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>PSNR (dB) ↑</strong> <br/> (Measures mathematical accuracy)</td>
+                                <td>29.96</td>
+                                <td><strong>30.51</strong></td>
+                                <td>MSE Model</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SSIM ↑</strong> <br/> (Measures perceived structural quality)</td>
+                                <td><strong>0.8307</strong></td>
+                                <td>0.8282</td>
+                                <td><strong>L1 Model</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="discussion-content">
+                        <p>
+                            The MSE-trained model won on PSNR, which was expected as PSNR is an MSE-based metric.
+                        </p>
+                        <p>
+                            However, <strong>L1-trained model won on SSIM</strong> (Structural Similarity Index). This proves that the L1-trained model does a superior job at the goal: recreating the sharp structures and details that a human eye perceives as a high-quality image.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            </section>
 
             <!-- Tech Stack -->
-            <section class="project-section">
+            <!-- <section class="project-section">
                 <h2 class="project-section-title">Tech Stack</h2>
                 <div class="tech-stack">
                     <div class="tech-category">
                         <h3>Machine Learning</h3>
                         <div class="tech-tags">
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">Keras</span>
-                            <span class="tech-tag">LSTM</span>
-                            <span class="tech-tag">Word Embeddings</span>
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">CNN</span>
+                            <span class="tech-tag">Python</span>
                         </div>
                     </div>
                     <div class="tech-category">
-                        <h3>NLP Libraries</h3>
+                        <h3></h3>
                         <div class="tech-tags">
                             <span class="tech-tag">NLTK</span>
                             <span class="tech-tag">spaCy</span>
                             <span class="tech-tag">Transformers</span>
                             <span class="tech-tag">TextBlob</span>
                         </div>
-                    </div>
-                    <div class="tech-category">
+                    </div> -->
+                    <!-- <div class="tech-category">
                         <h3>Backend</h3>
                         <div class="tech-tags">
                             <span class="tech-tag">Flask</span>
@@ -165,27 +228,27 @@
                             <span class="tech-tag">REST API</span>
                             <span class="tech-tag">SQLite</span>
                         </div>
-                    </div>
-                    <div class="tech-category">
+                    </div> -->
+                    <!-- <div class="tech-category">
                         <h3>Frontend</h3>
                         <div class="tech-tags">
                             <span class="tech-tag">HTML/CSS</span>
                             <span class="tech-tag">JavaScript</span>
                             <span class="tech-tag">Chart.js</span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </section>
 
             <!-- Results/Impact -->
             <section class="project-section">
-                <h2 class="project-section-title">Results & Impact</h2>
+                <h2 class="project-section-title">Future Applications</h2>
                 <div class="project-section-content">
                     <p>
-                        The NLP sentiment analyzer achieved 89.2% accuracy on a diverse test set of social media content, significantly outperforming baseline models. The system successfully processes over 1,000 texts per minute and provides real-time sentiment analysis with sub-second response times.
+                        This project's findings have direct implications for critical fields like medical imaging. In a diagnostic setting, a model that produces a blurry, <strong>mathematically safe average (high PSNR)</strong> is dangerous.
                     </p>
                     <p>
-                        The application has been used to analyze customer feedback, monitor brand sentiment, and track public opinion on various topics. The visualization dashboard helps users identify trends and patterns in sentiment over time, enabling data-driven decision-making.
+                        It could smooth over the very details that are critical for a diagnosis. This project provides a quantitative evidence that optimizing for L1/SSIM is the correct approach, such as a hairline fracture or the sharp boundary of a small tumor. This work validates a clear path for developing more reliable and perceptually-accurate models for healthcare.
                     </p>
                 </div>
             </section>
@@ -194,12 +257,13 @@
             <section class="project-links-section">
                 <h2 class="project-section-title">Project Links</h2>
                 <div class="project-external-links">
-                    <a href="https://github.com/yourusername/nlp-sentiment-analyzer" class="btn" target="_blank" rel="noopener noreferrer">
+                    <p>Project is still in improvement. Please check back soon for updates.</p>
+                    <!-- <a href="https://github.com/yourusername/nlp-sentiment-analyzer" class="btn" target="_blank" rel="noopener noreferrer">
                         View on GitHub
                     </a>
                     <a href="#" class="btn-secondary" target="_blank" rel="noopener noreferrer">
                         Live Demo
-                    </a>
+                    </a> -->
                 </div>
             </section>
 

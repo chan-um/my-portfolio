@@ -708,6 +708,18 @@ ul {
     border-top: 1px solid #333;
 }
 
+/* Personal/Trip Images */
+.personal-image {
+    max-width: 700px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 2rem auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+}
+
 /* Training Discussion Section */
 .training-discussion {
     margin-bottom: 3rem;
@@ -738,6 +750,95 @@ ul {
 
 .discussion-content p:last-child {
     margin-bottom: 0;
+}
+
+/* Metrics Table Styling */
+.metrics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: var(--surface-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 1rem;
+}
+
+.metrics-table thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-variant));
+}
+
+.metrics-table th {
+    padding: 1.25rem 1rem;
+    text-align: left;
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 1.05rem;
+    border-bottom: 2px solid rgba(187, 134, 252, 0.3);
+}
+
+.metrics-table th:first-child {
+    padding-left: 1.5rem;
+}
+
+.metrics-table th:nth-child(2),
+.metrics-table th:nth-child(3),
+.metrics-table th:last-child {
+    text-align: center;
+}
+
+.metrics-table th:last-child {
+    padding-right: 1.5rem;
+}
+
+.metrics-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.2s ease;
+}
+
+.metrics-table tbody tr:hover {
+    background-color: rgba(187, 134, 252, 0.05);
+}
+
+.metrics-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.metrics-table td {
+    padding: 1.25rem 1rem;
+    color: var(--text-secondary);
+    vertical-align: top;
+}
+
+.metrics-table td:first-child {
+    padding-left: 1.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.metrics-table td:last-child {
+    padding-right: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.metrics-table tbody td:nth-child(2),
+.metrics-table tbody td:nth-child(3) {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.metrics-table tbody td:last-child {
+    text-align: center;
+}
+
+/* Highlight winning values */
+.metrics-table td strong {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.15rem;
 }
 
 /* Training Details Section */
@@ -1186,6 +1287,37 @@ footer {
     .project-external-links .btn-secondary {
         width: 100%;
         text-align: center;
+    }
+
+    /* Responsive table styling */
+    .metrics-table {
+        font-size: 0.9rem;
+    }
+
+    .metrics-table th,
+    .metrics-table td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .metrics-table th:first-child,
+    .metrics-table td:first-child {
+        padding-left: 0.75rem;
+    }
+
+    .metrics-table th:last-child,
+    .metrics-table td:last-child {
+        padding-right: 0.75rem;
+    }
+
+    .metrics-table tbody td:nth-child(2),
+    .metrics-table tbody td:nth-child(3) {
+        font-size: 1rem;
+    }
+
+    .personal-image {
+        max-width: 100%;
+        margin: 1.5rem auto;
+        border-radius: 8px;
     }
 
     .project-feature-image {
